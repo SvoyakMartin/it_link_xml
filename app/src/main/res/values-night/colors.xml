@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#FF7F4600</color>
+    <color name="onPrimary">#FF4C2700</color>
+    <color name="primaryContainer">#FF6C3A00</color>
+    <color name="onPrimaryContainer">#FFFFDCC1</color>
+    <color name="secondary">#FFFFB599</color>
+    <color name="onSecondary">#FF5A1C00</color>
+    <color name="secondaryContainer">#FF7B2F0A</color>
+    <color name="onSecondaryContainer">#FFFFDBCE</color>
+    <color name="tertiary">#FFFFB68B</color>
+    <color name="onTertiary">#FF522300</color>
+    <color name="tertiaryContainer">#FF743400</color>
+    <color name="onTertiaryContainer">#FFFFDBC8</color>
+    <color name="error">#FFFFB4AB</color>
+    <color name="errorContainer">#FF93000A</color>
+    <color name="onError">#FF690005</color>
+    <color name="onErrorContainer">#FFFFDAD6</color>
+    <color name="background">#FF201B17</color>
+    <color name="onBackground">#FFECE0DA</color>
+    <color name="surface">#FF302B27</color>
+    <color name="onSurface">#FFECE0DA</color>
+    <color name="surfaceVariant">#FF51443A</color>
+    <color name="onSurfaceVariant">#FFD6C3B6</color>
+    <color name="outline">#FF9E8E82</color>
+    <color name="inverseOnSurface">#FF201B17</color>
+    <color name="inverseSurface">#FFECE0DA</color>
+    <color name="inversePrimary">#FF8E4E00</color>
+    <color name="shadow">#FF000000</color>
+    <color name="surfaceTint">#FFFFB779</color>
+    <color name="outlineVariant">#FF51443A</color>
+    <color name="scrim">#FF000000</color>
+</resources>

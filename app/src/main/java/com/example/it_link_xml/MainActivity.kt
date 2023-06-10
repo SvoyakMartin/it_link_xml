@@ -12,6 +12,7 @@ import com.example.it_link_xml.databinding.ActivityMainBinding
 import com.example.it_link_xml.ui.ImageViewModel
 import com.example.it_link_xml.ui.ListAdapter
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -29,25 +30,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        binding.apply{
+        binding.apply {
             recyclerView.apply {
-                val numberOfColumns = 3
                 adapter = this@MainActivity.adapter
-                layoutManager = GridLayoutManager(this@MainActivity, numberOfColumns)
+                layoutManager = GridLayoutManager(this@MainActivity, calculateColumnCount())
             }
         }
 
         lifecycleScope.launch {
-            viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect { stringArray ->
-                adapter.submitList(stringArray)
+            viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { stringArray ->
+                    adapter.submitList(stringArray)
 
-                val loadingVisibility = if (stringArray.isEmpty()) View.VISIBLE else View.GONE
+                    val loadingVisibility = if (stringArray.isEmpty()) View.VISIBLE else View.GONE
 
-                binding.apply{
-                    loadingImage.visibility = loadingVisibility
-                    loadingText.visibility = loadingVisibility
+                    binding.apply {
+                        loadingImage.visibility = loadingVisibility
+                        loadingText.visibility = loadingVisibility
+                    }
                 }
-            }
         }
+    }
+
+    private fun calculateColumnCount(): Int {
+        val displayMetrics = resources.displayMetrics
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        val scalingFactor = 128
+        val columnCount = (dpWidth / scalingFactor).roundToInt()
+        return if (columnCount >= 1) columnCount else 1
     }
 }
