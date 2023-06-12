@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class Repository() {
+class Repository {
     private val client: OkHttpClient = OkHttpClient()
 
     suspend fun getImageList() = flow {
@@ -18,7 +18,7 @@ class Repository() {
         try {
             val linksText = client.newCall(request).execute().body?.string()
             linksText?.split("\r\n")?.let { webList ->
-                emit(webList.distinct().toTypedArray())
+                emit(webList.distinct())
             }
         } catch (e: Exception) {
             emit(e.message)
@@ -26,24 +26,4 @@ class Repository() {
 
     }
         .flowOn(Dispatchers.IO)
-
-//    suspend fun getImageBitmap(imageUrl: String) = flow {
-//        try {
-//            val image = Glide.with(AppDeps.app)
-//                .asBitmap()
-//                .load(imageUrl)
-//                .override(Target.SIZE_ORIGINAL).submit().get()
-//                .asImageBitmap()
-//
-//            emit(image)
-//        } catch (e: Exception) {
-//            emit(e.message)
-//        }
-//    }
-//        .flowOn(Dispatchers.IO)
-//
-//    fun addUrl(url: String) = flow {
-//        roomDAO.insertUrl(RoomEntity(url = url))
-//        emit(true)
-//    }
 }

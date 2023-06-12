@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">IT-Link xml</string>
     <string name="loading">loading…</string>
+    <string name="image">image</string>
 </resources>

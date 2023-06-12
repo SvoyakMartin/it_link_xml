@@ -8,19 +8,23 @@ import com.example.it_link_xml.databinding.ItemBinding
 
 class ItemViewHolder(private val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(imageUrl: String) {
+        val newText = imageUrl.split('/').last()
+
         with(binding) {
-            url.text = imageUrl.split('/').last()
+            if (newText != url.text){
+                url.text = newText
 
-            Glide.with(image.context)
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.not_image)
-                .fitCenter()
-                .centerCrop()
-                .into(image)
+                Glide.with(image.context)
+                    .load(imageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.not_image)
+                    .fitCenter()
+                    .centerCrop()
+                    .into(image)
 
-            itemView.setOnClickListener {}
+                itemView.setOnClickListener {}
+            }
         }
     }
 }

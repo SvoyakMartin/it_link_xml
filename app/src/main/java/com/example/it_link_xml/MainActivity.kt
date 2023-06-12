@@ -1,7 +1,9 @@
 package com.example.it_link_xml
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -30,10 +32,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        setOrientation()
+        setGridColumnCount()
+
         binding.apply {
             recyclerView.apply {
                 adapter = this@MainActivity.adapter
-                layoutManager = GridLayoutManager(this@MainActivity, calculateColumnCount())
             }
         }
 
@@ -52,11 +56,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setOrientation(newOrientation: Int = resources.configuration.orientation) {
+        viewModel.orientation = newOrientation
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        val newOrientation = newConfig.orientation
+
+        if (newOrientation != viewModel.orientation){
+            setOrientation(newOrientation)
+            setGridColumnCount()
+        }
+
+        super.onConfigurationChanged(newConfig)
+    }
+
     private fun calculateColumnCount(): Int {
         val displayMetrics = resources.displayMetrics
         val dpWidth = displayMetrics.widthPixels / displayMetrics.density
         val scalingFactor = 128
         val columnCount = (dpWidth / scalingFactor).roundToInt()
         return if (columnCount >= 1) columnCount else 1
+    }
+
+    private fun setGridColumnCount(){
+        binding.recyclerView.layoutManager = GridLayoutManager(this@MainActivity, calculateColumnCount())
     }
 }

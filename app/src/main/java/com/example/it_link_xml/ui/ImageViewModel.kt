@@ -15,6 +15,7 @@ class ImageViewModel : ViewModel() {
     val state: StateFlow<Array<String>>
         get() = _state
     private val repository = Repository()
+    var orientation = 0
 
     init {
         fetchImageUrlList()
@@ -24,10 +25,15 @@ class ImageViewModel : ViewModel() {
         viewModelScope.launch {
             repository.getImageList().conflate().collect { data ->
                 when (data) {
-                    is Array<*> -> {
-                        if (data.isArrayOf<String>()) {
-                            _state.value = data as Array<String>
+                    is List<*> -> {
+                        val stringArray = Array(data.size) { "" }
+
+                        data.forEachIndexed { index, str ->
+                            if (str is String) {
+                                stringArray[index] = str
+                            }
                         }
+                        _state.value = stringArray
                     }
 
                     else -> Log.e(ERROR_TAG, "fetchImageUrlList: $data")
