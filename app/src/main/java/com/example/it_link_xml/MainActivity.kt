@@ -80,6 +80,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setGridColumnCount(){
-        binding.recyclerView.layoutManager = GridLayoutManager(this@MainActivity, calculateColumnCount())
+        binding.recyclerView.layoutManager = GridLayoutManager(this, calculateColumnCount())
     }
 }
